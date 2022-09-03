@@ -11,7 +11,7 @@ from torch.nn.modules.batchnorm import _BatchNorm
 
 
 
-class BasicBlock(BaseModule):
+class BasicBlock(nn.Module):
     expansion = 1
 
     def __init__(self,
