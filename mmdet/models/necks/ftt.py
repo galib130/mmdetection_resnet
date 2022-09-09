@@ -8,9 +8,7 @@ import torch.nn as nn
 
 import math
 
-from .backbone import Backbone
-from .build import BACKBONE_REGISTRY
-from .resnet import build_resnet_backbone
+
 
 
 # p2, p3 in the paper is p3, p4 for us 
