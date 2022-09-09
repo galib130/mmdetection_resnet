@@ -3,9 +3,8 @@ import numpy as np
 import fvcore.nn.weight_init as weight_init
 import torch
 import torch.nn.functional as F
-from torch import nn
+import torch.nn as nn
 
-from detectron.layers import Conv2d, ShapeSpec, get_norm
 
 import math
 
@@ -17,7 +16,7 @@ from .resnet import build_resnet_backbone
 # p2, p3 in the paper is p3, p4 for us 
 # format of p2, p3 is both [bs, channels, height, width]
 def FTT_get_p3pr(p2, p3, out_channels, norm):
-    channel_scaler = Conv2d(
+    channel_scaler = nn.Conv2d(
         out_channels,
         out_channels * 4,
         kernel_size=1,
@@ -27,7 +26,7 @@ def FTT_get_p3pr(p2, p3, out_channels, norm):
 
     # tuple of (conv2d, conv2d, iter)
     def create_content_extractor(x, num_channels, iterations=3):
-        conv1 = Conv2d(
+        conv1 = nn.Conv2d(
         num_channels,
         num_channels,
         kernel_size=1,
@@ -35,7 +34,7 @@ def FTT_get_p3pr(p2, p3, out_channels, norm):
         #norm=get_norm(norm, num_channels),
         )
 
-        conv2 = Conv2d(
+        conv2 = nn.Conv2d(
         num_channels,
         num_channels,
         kernel_size=1,
@@ -53,7 +52,7 @@ def FTT_get_p3pr(p2, p3, out_channels, norm):
         return out
 
     def create_texture_extractor(x, num_channels, iterations=3):
-        conv1 = Conv2d(
+        conv1 = nn.Conv2d(
         num_channels,
         num_channels,
         kernel_size=1,
@@ -61,7 +60,7 @@ def FTT_get_p3pr(p2, p3, out_channels, norm):
         #norm=get_norm(norm, num_channels),
         )
 
-        conv2 = Conv2d(
+        conv2 = nn.Conv2d(
         num_channels,
         num_channels,
         kernel_size=1,
@@ -69,7 +68,7 @@ def FTT_get_p3pr(p2, p3, out_channels, norm):
         #norm=get_norm(norm, num_channels),
         )
 
-        conv3 = Conv2d(
+        conv3 = nn.Conv2d(
         num_channels,
         int(num_channels/2),
         kernel_size=1,
